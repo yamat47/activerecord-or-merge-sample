@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_03_022245) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_03_022710) do
+  create_table "parental_consent_logs", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.datetime "consented_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_parental_consent_logs_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
     t.integer "age", null: false
@@ -18,4 +26,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_022245) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "parental_consent_logs", "users"
 end
