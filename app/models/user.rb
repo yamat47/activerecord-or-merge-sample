@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  belongs_to :guild
   has_many :parental_consent_logs, dependent: :destroy
 
   validates :name, presence: true

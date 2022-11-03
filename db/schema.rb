@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_03_022710) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_03_031915) do
+  create_table "guilds", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "parental_consent_logs", force: :cascade do |t|
     t.integer "user_id", null: false
     t.datetime "consented_at", null: false
@@ -24,7 +30,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_022710) do
     t.integer "age", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "guild_id", null: false
+    t.index ["guild_id"], name: "index_users_on_guild_id"
   end
 
   add_foreign_key "parental_consent_logs", "users"
+  add_foreign_key "users", "guilds"
 end
