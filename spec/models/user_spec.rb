@@ -14,14 +14,31 @@ RSpec.describe User do
   end
 
   describe '.adult_or_parental_consented' do
-    subject { described_class.adult_or_parental_consented }
+    context 'when scope is used with another condition' do
+      subject { described_class.where(guild: craft).adult_or_parental_consented }
 
-    it { is_expected.to contain_exactly(hanako, jiro, saburo) }
+      it { is_expected.to contain_exactly(jiro, saburo) }
+    end
+
+    context 'when scope is used without another condition' do
+      subject { described_class.adult_or_parental_consented }
+
+      it { is_expected.to contain_exactly(hanako, jiro, saburo) }
+    end
   end
 
   describe '.merge_unused_adult_or_parental_consented' do
-    subject { described_class.merge_unused_adult_or_parental_consented }
+    context 'when scope is used with another condition' do
+      subject { described_class.where(guild: craft).merge_unused_adult_or_parental_consented }
 
-    it { is_expected.to contain_exactly(hanako, jiro, saburo) }
+      # This example unexpectedly fails.
+      it { is_expected.to contain_exactly(jiro, saburo) }
+    end
+
+    context 'when scope is used without another condition' do
+      subject { described_class.merge_unused_adult_or_parental_consented }
+
+      it { is_expected.to contain_exactly(hanako, jiro, saburo) }
+    end
   end
 end
